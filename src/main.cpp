@@ -1,6 +1,29 @@
 #include <SFML/Graphics.hpp>
 #include "settings.hpp"
 
+int dir;
+int num = 4;
+struct Snake
+    {int x, y;} s[100];
+
+void Tick()
+{
+    for(int i=num; i>0; --i)
+    {
+        s[i].x = s[i-1].x;
+        s[i].y = s[i-1].y;
+    }
+
+    if(dir == 0)
+        s[0].y += 1;
+    if(dir == 1)
+        s[0].x -= 1;
+    if(dir == 2)
+        s[0].x += 1;
+    if(dir == 3)
+        s[0].y -= 1;
+}
+
 int main()
 {
     srand(time(0));
@@ -27,9 +50,17 @@ int main()
         return EXIT_FAILURE;
     sf::Sprite sBlock2(tBlock2);
 
+    sf::Clock clock;
+    float timer = 0;
+    float delay = 0.1;
+
 	// Start the game loop
     while (app.isOpen())
     {
+        float time = clock.getElapsedTime().asSeconds();
+        clock.restart();
+        timer += time;
+
         // Process events
         sf::Event event;
         while (app.pollEvent(event))
@@ -38,6 +69,12 @@ int main()
             if (event.type == sf::Event::Closed ||
                 (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
                 app.close();
+        }
+
+        if(timer > delay)
+        {
+            timer = 0;
+            Tick();
         }
 
         // Clear screen
@@ -52,6 +89,12 @@ int main()
                 sBlock1.setPosition(i * blockSize, j * blockSize);
                 app.draw(sBlock1);
             }
+
+        for(int i=0; i<num; i++)
+        {
+            sBlock2.setPosition(s[i].x * blockSize, s[i].y * blockSize);
+            app.draw(sBlock2);
+        }
 
         // Update the window
         app.display();
