@@ -5,6 +5,8 @@ int dir;
 int num = 4;
 struct Snake
     {int x, y;} s[100];
+struct Fruct
+    {int x, y;} f;
 
 void Tick()
 {
@@ -22,6 +24,13 @@ void Tick()
         s[0].x += 1;
     if(dir == 3)
         s[0].y -= 1;
+
+    if((s[0].x == f.x) && (s[0].y == f.y))
+    {
+        num++;
+        f.x = rand() % N;
+        f.y = rand() % M;
+    }
 }
 
 int main()
@@ -53,6 +62,9 @@ int main()
     sf::Clock clock;
     float timer = 0;
     float delay = 0.1;
+
+    f.x = 10;
+    f.y = 10;
 
 	// Start the game loop
     while (app.isOpen())
@@ -104,6 +116,9 @@ int main()
             sBlock2.setPosition(s[i].x * blockSize, s[i].y * blockSize);
             app.draw(sBlock2);
         }
+
+        sBlock2.setPosition(f.x * blockSize, f.y * blockSize);
+        app.draw(sBlock2);
 
         // Update the window
         app.display();
