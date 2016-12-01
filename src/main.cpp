@@ -71,6 +71,15 @@ int main()
                 app.close();
         }
 
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            dir = 1;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            dir = 2;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            dir = 3;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            dir = 0;
+
         if(timer > delay)
         {
             timer = 0;
