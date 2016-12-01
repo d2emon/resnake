@@ -3,12 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
-sf::String gameTitle = "Rerkanoid";
+sf::String gameTitle = "Snake game";
 int winSize[2] = {800, 600};
 
-const int M = 450;
-const int N = 520;
-int boxSize[2] = {N, M};
+const int M = 20;
+const int N = 30;
+const int blockSize = 16;
+int boxSize[2] = {N * blockSize, M * blockSize};
 int fps = 60;
 
 int backgroundsCount = 10;
@@ -31,12 +32,9 @@ sf::String backgrounds[10] = {
 // int blockW = 43;
 // int blockH = 20;
 // int posNowhere[2] = {-100, 0};
-sf::String blocks[5] = {
-    "res/block01.png",
-    "res/block02.png",
-    "res/block03.png",
-    "res/block04.png",
-    "res/block05.png",
+sf::String blocks[2] = {
+    "res/white.png",
+    "res/red.png",
 };
 
 // int ballPos[2] = {300, 300};
